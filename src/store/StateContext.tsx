@@ -267,11 +267,7 @@ class StateProvider extends Component<StateContextProps, StateContextState> {
 
   handleSetUpPanning = (x, y) => {
     const { positionX, positionY, scale } = this.stateProvider;
-    console.log(`scale = ${scale}`);
-    if (scale === 1) {
-      console.log('stop panning');
-      return;
-    }
+    if (scale === 1) return;
     this.isDown = true;
     this.startCoords = { x: x - positionX, y: y - positionY };
 
