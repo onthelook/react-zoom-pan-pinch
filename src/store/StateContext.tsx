@@ -85,11 +85,7 @@ class StateProvider extends Component<StateContextProps, StateContextState> {
     const passiveOption = makePassiveEventOption(false);
 
     // Panning on window to allow panning when mouse is out of wrapper
-    window.addEventListener(
-      "mousedown",
-      this.handleStartPanning,
-      passiveOption,
-    );
+    window.addEventListener("mousedown", this.handleStartPanning, passiveOption);
     window.addEventListener("mousemove", this.handlePanning, passiveOption);
     window.addEventListener("mouseup", this.handleStopPanning, passiveOption);
   }
@@ -97,17 +93,9 @@ class StateProvider extends Component<StateContextProps, StateContextState> {
   componentWillUnmount() {
     const passiveOption = makePassiveEventOption(false);
 
-    window.removeEventListener(
-      "mousedown",
-      this.handleStartPanning,
-      passiveOption,
-    );
+    window.removeEventListener("mousedown",this.handleStartPanning,passiveOption);
     window.removeEventListener("mousemove", this.handlePanning, passiveOption);
-    window.removeEventListener(
-      "mouseup",
-      this.handleStopPanning,
-      passiveOption,
-    );
+    window.removeEventListener("mouseup", this.handleStopPanning, passiveOption);
     handleDisableAnimation.call(this);
   }
 
@@ -278,7 +266,12 @@ class StateProvider extends Component<StateContextProps, StateContextState> {
   };
 
   handleSetUpPanning = (x, y) => {
-    const { positionX, positionY } = this.stateProvider;
+    const { positionX, positionY, scale } = this.stateProvider;
+    console.log(`scale = ${scale}`);
+    if (scale === 1) {
+      console.log('stop panning');
+      return;
+    }
     this.isDown = true;
     this.startCoords = { x: x - positionX, y: y - positionY };
 
@@ -355,6 +348,7 @@ class StateProvider extends Component<StateContextProps, StateContextState> {
 
   handlePinchStart = event => {
     const { scale } = this.stateProvider;
+
     event.preventDefault();
     event.stopPropagation();
 
