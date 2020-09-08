@@ -26,7 +26,7 @@ export function handlePanning(event) {
     wrapperComponent,
   } = this.stateProvider;
 
-  if (!this.startCoords) return;
+  if (!this.startCoords || scale === 1) return;
   const { x, y } = this.startCoords;
 
   const positions = getClientPosition(event);
